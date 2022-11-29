@@ -61,12 +61,14 @@ struct Coord3D {
                && z <= bottomRight.z;
     }
 
-    static consteval std::array<Coord3D, 6> adjacencies() noexcept requires(std::is_signed_v<T>)
+    static consteval std::array<Coord3D, 6> adjacencies() noexcept
+        requires(std::is_signed_v<T>)
     {
         return {{{-1, 0, 0}, {0, -1, 0}, {0, 1, 0}, {1, 0, 0}, {0, 0, 1}, {0, 0, -1}}};
     }
 
-    static consteval std::array<Coord3D, 80> adjacenciesDiag() noexcept requires(std::is_signed_v<T>)
+    static consteval std::array<Coord3D, 80> adjacenciesDiag() noexcept
+        requires(std::is_signed_v<T>)
     {
         return {{-1, -1, -1}, {-1, -1, 0}, {-1, -1, 1}, {-1, 0, -1}, {-1, 0, 0}, {-1, 0, 1}, {-1, 1, -1},
                 {-1, 1, 0},   {-1, 1, 1},  {0, -1, -1}, {0, -1, 0},  {0, -1, 1}, {0, 0, -1}, {0, 0, 1},
@@ -100,7 +102,8 @@ struct Coord3D {
         }
     };
 
-    constexpr Coord3D perm(int64_t xsel, int64_t ysel, int64_t zsel) const noexcept requires(std::is_signed_v<T>)
+    constexpr Coord3D perm(int64_t xsel, int64_t ysel, int64_t zsel) const noexcept
+        requires(std::is_signed_v<T>)
     {
         const size_t xselAbs{static_cast<size_t>(xsel < 0 ? -xsel : xsel) - 1};
         const size_t yselAbs{static_cast<size_t>(ysel < 0 ? -ysel : ysel) - 1};
@@ -125,7 +128,8 @@ struct Coord3D {
                  {-1, -2, -3}, {-1, -3, -2}, {-2, -1, -3}, {-2, -3, -1}, {-3, -1, -2}, {-3, -2, -1}}};
     }
 
-    static consteval std::array<std::tuple<int64_t, int64_t, int64_t>, 24> rots() noexcept requires(std::is_signed_v<T>)
+    static consteval std::array<std::tuple<int64_t, int64_t, int64_t>, 24> rots() noexcept
+        requires(std::is_signed_v<T>)
     {
         return {{{1, 2, 3},  {1, -3, 2},  {1, -2, -3},  {1, 3, -2},   {3, 2, -1},   {-1, 2, -3},
                  {-3, 2, 1}, {2, -3, -1}, {-1, -3, -2}, {-2, -3, 1},  {-3, -2, -1}, {-1, -2, 3},

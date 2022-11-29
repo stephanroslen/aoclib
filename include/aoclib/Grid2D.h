@@ -16,17 +16,20 @@ struct Grid2D {
 
     Grid2D() = default;
 
-    Grid2D(const Coord& gridSize_, auto&& initializer) : gridSize{gridSize_}, data(gridSize.x * gridSize.y, T{}) {
-        eachCoord([&](const Coord& coord){
-            at(coord) = initializer(coord);
-        });
+    Grid2D(const Coord& gridSize_, auto&& initializer)
+        : gridSize{gridSize_}
+        , data(gridSize.x * gridSize.y, T{})
+    {
+        eachCoord([&](const Coord& coord) { at(coord) = initializer(coord); });
     }
 
-    bool isOnGrid(const Coord& coord) const noexcept {
+    bool isOnGrid(const Coord& coord) const noexcept
+    {
         return coord.isInRectangle({0, 0}, gridSize - Coord{1, 1});
     }
 
-    void eachCoord(auto&& morphism) const noexcept {
+    void eachCoord(auto&& morphism) const noexcept
+    {
         for (CT iy{0}; iy < gridSize.y; ++iy) {
             for (CT ix{0}; ix < gridSize.x; ++ix) {
                 const Coord coord{ix, iy};
@@ -35,30 +38,30 @@ struct Grid2D {
         }
     }
 
-    void eachValue(auto&& morphism) const noexcept {
-        eachCoord([&](const Coord& coord){
-            morphism(at(coord));
-        });
+    void eachValue(auto&& morphism) const noexcept
+    {
+        eachCoord([&](const Coord& coord) { morphism(at(coord)); });
     }
 
-    void eachValue(auto&& morphism) noexcept {
-        eachCoord([&](const Coord& coord){
-            morphism(at(coord));
-        });
+    void eachValue(auto&& morphism) noexcept
+    {
+        eachCoord([&](const Coord& coord) { morphism(at(coord)); });
     }
 
-    size_t coordToIdx(const Coord& coord) const noexcept {
+    size_t coordToIdx(const Coord& coord) const noexcept
+    {
         return coord.x + coord.y * gridSize.x;
     }
 
-    decltype(auto) at(const Coord& coord) noexcept {
+    decltype(auto) at(const Coord& coord) noexcept
+    {
         return data.at(coordToIdx(coord));
     }
 
-    decltype(auto) at(const Coord& coord) const noexcept {
+    decltype(auto) at(const Coord& coord) const noexcept
+    {
         return data.at(coordToIdx(coord));
     }
-
 };
 
 template <typename CT, typename T>

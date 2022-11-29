@@ -49,16 +49,19 @@ struct Coord2D {
 
     constexpr auto operator<=>(const Coord2D& other) const noexcept = default;
 
-    constexpr bool isInRectangle(const Coord2D& topLeft, const Coord2D& bottomRight) const noexcept {
+    constexpr bool isInRectangle(const Coord2D& topLeft, const Coord2D& bottomRight) const noexcept
+    {
         return x >= topLeft.x && y >= topLeft.y && x <= bottomRight.x && y <= bottomRight.y;
     }
 
-    static consteval std::array<Coord2D, 4> adjacencies() noexcept requires(std::is_signed_v<T>)
+    static consteval std::array<Coord2D, 4> adjacencies() noexcept
+        requires(std::is_signed_v<T>)
     {
         return {{{-1, 0}, {0, -1}, {0, 1}, {1, 0}}};
     }
 
-    static consteval std::array<Coord2D, 8> adjacenciesDiag() noexcept requires(std::is_signed_v<T>)
+    static consteval std::array<Coord2D, 8> adjacenciesDiag() noexcept
+        requires(std::is_signed_v<T>)
     {
         return {{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}};
     }
